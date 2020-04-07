@@ -4,8 +4,9 @@
 REM ------Set Your Environment------------------------------- 
 if NOT DEFINED MSVC_VERSION set MSVC_VERSION=15
 if NOT DEFINED CMAKE_CONFIG set CMAKE_CONFIG=Release
-if NOT DEFINED PYTHONHOME   set PYTHONHOME=C:/Users/%username%/Anaconda3
+if NOT DEFINED PYTHONHOME   set PYTHONHOME=C:/Users/%username%/miniconda3
 REM ---------------------------------------------------------
+call %PYTHONHOME%/Scripts/activate
 
 set KEY_NAME="HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\SxS\VS7"
 set VALUE_NAME=15.0
@@ -52,7 +53,9 @@ cmake --build . --config %CMAKE_CONFIG%
 pushd %CMAKE_CONFIG%  
 if not EXIST platforms mkdir platforms
 if EXIST %PYTHONHOME%/Library/plugins/platforms/qwindows.dll ^
-cp %PYTHONHOME%/Library/plugins/platforms/qwindows.dll ./platforms/
+xcopy /I %PYTHONHOME%/Library/plugins/platforms/qwindows.dll .\platforms\
+
+echo "%PYTHONHOME%/Library/plugins/platforms/qwindows.dll"
 popd
 REM move ./%CMAKE_CONFIG% ../
 popd

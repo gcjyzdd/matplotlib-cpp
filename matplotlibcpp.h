@@ -11,7 +11,13 @@
 #include <functional>
 #include <unordered_map>
 
-#include <Python.h>
+#ifdef _DEBUG
+  #undef _DEBUG
+  #include <python.h>
+  #define _DEBUG
+#else
+  #include <python.h>
+#endif
 
 #ifndef WITHOUT_NUMPY
 #  define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
